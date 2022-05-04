@@ -9,7 +9,7 @@ export function Logo() {
     <div style={{ width: 125, padding: 6, cursor: "pointer" }}>
       <Link href="/" passHref>
         <Image
-          src="/iReviewer-Logo.png"
+          src="/iReviewer-Logo.svg"
           alt="Random unsplash image"
         />
       </Link>
