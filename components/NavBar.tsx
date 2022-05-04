@@ -19,13 +19,14 @@ import {
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Logo } from '../public/_logo';
 
-const Links = ['STEM', 'ABM', 'HUMMS'];
+export const Links = ['All', 'STEM', 'ABM', 'HUMMS'];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Link
     justifyItems={"right"}
     px={2}
     py={1}
+    fontWeight={600}
     rounded={'md'}
     _hover={{
       textDecoration: 'none',
@@ -52,14 +53,14 @@ export default function Header() {
           />
           <HStack spacing={8} alignItems={'center'}>
             <Box><Logo/></Box>
-            <HStack
+            {/* <HStack
               as={'nav'}
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
                 <NavLink key={link}>{link}</NavLink>
               ))}
-            </HStack>
+            </HStack> */}
           </HStack>
           <Flex alignItems={'center'}>
             <Menu>

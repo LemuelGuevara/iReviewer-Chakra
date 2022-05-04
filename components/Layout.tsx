@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import Header from './Header'
+import Header from './NavBar'
 import Hero from './Hero'
 import HeroBanner from './HeroBanner'
 import SubNav from './SubNav'
@@ -17,6 +17,7 @@ function Layout() {
       </Head> 
       <Header/>
       <HeroBanner/>
+      <SubNav/>
     </div>
   )
 }
