@@ -5,6 +5,7 @@ import Layout from '../components/Layout'
 import styles from '../styles/Home.module.css'
 import Hero from '../components/Hero'
 import HeroBanner from '../components/HeroBanner'
+import ReviewerCard from '../components/ReviewerCard'
 
 const Home: NextPage = () => {
   return (
@@ -15,6 +16,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout/>
+      <ReviewerCard/>
     </div>
   )
 }
