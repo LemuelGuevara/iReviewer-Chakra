@@ -14,6 +14,7 @@ import {
   useColorModeValue,
   extendTheme
 } from '@chakra-ui/react';
+import SiginModal from './SiginModal';
 
 export default function HeroBanner() {
   return (
@@ -55,16 +56,7 @@ export default function HeroBanner() {
           <Stack
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: 'column', sm: 'row' }}>
-            <Button
-              rounded={'xl'}
-              size={'md'}
-              fontWeight={'medium'}
-              px={6}
-              colorScheme={"#00B0FF"}
-              bg={"#00B0FF"}
-              _hover={{ bg: '#70CBF7' }}>
-              Sigin In
-            </Button>
+              <SiginModal/>
           </Stack>
         </Stack>
         <Flex

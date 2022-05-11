@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { Button, Stack, useColorModeValue, } from "@chakra-ui/react";
-import { Links } from "./NavBar"
+
+const courses = ['All', 'STEM', 'ABM', 'HUMMS']
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Button
@@ -19,9 +20,8 @@ const NavLink = ({ children }: { children: ReactNode }) => (
 function SubNav() {
   return (
     <Stack direction="row" spacing={4} align="center" padding={6} justify="center">
-      {Links.map((link) => (
-        <NavLink key={link}>{link}</NavLink>
-
+      {courses.map((course) => (
+        <NavLink key={course}>{course}</NavLink>
       ))}
     </Stack>
   )
