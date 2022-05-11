@@ -1,9 +1,11 @@
 .container {
   padding: 0 2rem;
+  /* background-color: #0070f3; */
 }
 
 .main {
   min-height: 100vh;
+  max-height: 100vh;
   padding: 4rem 0;
   flex: 1;
   display: flex;
@@ -77,6 +79,7 @@
   margin: 1rem;
   padding: 1.5rem;
   text-align: left;
+  overflow: scroll;
   color: inherit;
   text-decoration: none;
   border: 1px solid #eaeaea;
