@@ -1,13 +1,16 @@
 import "../styles/globals.css";
-import type { AppProps } from "next/app";
+import "focus-visible/dist/focus-visible";
+import { AppProps } from "next/app";
 import { ChakraProvider } from '@chakra-ui/react'
+import theme from "../theme/theme";
+import { FirebaseAuth } from "react-firebaseui";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Component {...pageProps} />
     </ChakraProvider>
   );
 }
 
-export default MyApp;
+export default App;
