@@ -9,9 +9,16 @@ import {
 } from "@chakra-ui/react";
 import { Container } from "tabler-icons-react";
 import Link from "next/link";
+import Head from "next/head";
 
 export default function NotFound() {
   return (
+    <>
+    <Head>
+      <title>Home Sweet Page</title>
+        <meta name="description" content="Latest Reviewers" />
+        <link rel="icon" href="/iReviewer-Logo-Small.svg" />
+      </Head>
     <Center>
       <Box textAlign="center" py={10} px={6}>
         <Heading
@@ -21,7 +28,7 @@ export default function NotFound() {
           backgroundColor={'brand.300'}
           backgroundClip="text"
         >
-          You should not be seeing this...
+          They look like us, but are they us? I have so many questions.
         </Heading>
         <Box m={12}>
           <Image
@@ -30,7 +37,7 @@ export default function NotFound() {
             align={"center"}
             w={"100%"}
             h={"100%"}
-            src={"/page-place-holder.svg"}
+            src={"/page-profile.svg"}
           />
         </Box>
         <Link href={'/'}>
@@ -46,5 +53,6 @@ export default function NotFound() {
         </Link>
       </Box>
     </Center>
+    </>
   );
 }
