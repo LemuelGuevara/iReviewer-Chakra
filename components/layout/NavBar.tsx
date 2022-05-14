@@ -19,12 +19,13 @@ import {
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { Logo } from "../../public/_logo";
 import NextLink from "next/link";
-import UploadModal from "../functions/UploadModal";
+import { signOut, useSession } from "next-auth/react";
+import UploadModal from "../modules/UploadModal"
 
 const Links = ["home", "profile", "about"];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
-  <NextLink href={children} passHref>
+  <NextLink href={"/" + children} passHref>
     <Link
       justifyItems={"right"}
       px={2}
@@ -44,6 +45,7 @@ const NavLink = ({ children }: { children: ReactNode }) => (
 
 export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { data: session } = useSession();
 
   return (
     <>
@@ -72,7 +74,7 @@ export default function NavBar() {
           </HStack>
           <Flex alignItems={"center"}>
             <HStack as={"nav"} p={4} display={{ base: "none", md: "flex" }}>
-              <UploadModal />
+              <UploadModal/>
             </HStack>
             <Menu>
               <MenuButton
@@ -82,18 +84,17 @@ export default function NavBar() {
                 cursor={"pointer"}
                 minW={0}
               >
-                <Avatar size={"sm"} src={"/profile-pic.jpg"} />
+                <Avatar size={"sm"} src={session?.user?.image} />
               </MenuButton>
               <MenuList>
-                <MenuItem>Profile</MenuItem>
+                <MenuItem>{session?.user?.name}</MenuItem>
                 <MenuItem>Settings</MenuItem>
                 <MenuDivider />
-                <MenuItem>Sign Out</MenuItem>
+                <MenuItem onClick={signOut}>Sign Out</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
         </Flex>
-
         {isOpen ? (
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
