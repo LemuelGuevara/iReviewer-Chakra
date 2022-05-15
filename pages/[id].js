@@ -40,13 +40,13 @@ function ReviewerPage({ providers }) {
   const [pageNumber, setPageNumber] = useState(1);
   pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
 
-  useEffect(
-    () =>
-      onSnapshot(doc(db, "reviewers", id), (snapshot) => {
-        setReviewers(snapshot.data());
-      }),
-    [db]
-  );
+  // useEffect(
+  //   () =>
+  //     onSnapshot(doc(db, "reviewers", id), (snapshot) => {
+  //       setReviewers(snapshot.data());
+  //     }),
+  //   [db]
+  // );
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
@@ -55,14 +55,6 @@ function ReviewerPage({ providers }) {
 
   function changePage(offSet) {
     setPageNumber((prevPageNumber) => prevPageNumber + offSet);
-  }
-
-  function changePageBack() {
-    changePage(-1);
-  }
-
-  function changePageNext() {
-    changePage(+1);
   }
 
   if (!session) return <SignUp providers={providers} />;
