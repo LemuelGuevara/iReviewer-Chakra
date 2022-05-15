@@ -28,7 +28,7 @@ export default function NotFound() {
           backgroundColor={'brand.300'}
           backgroundClip="text"
         >
-          Weclome to Lovely Page! Unforntunately it is still under contruction ☹️
+          They look like us, but are they us? I have so many questions.
         </Heading>
         <Box m={12}>
           <Image
@@ -37,10 +37,10 @@ export default function NotFound() {
             align={"center"}
             w={"100%"}
             h={"100%"}
-            src={"/page-place-holder.svg"}
+            src={"/page-profile.svg"}
           />
         </Box>
-        <Link href={'/'}>
+        <Link href={'/home'}>
           <Button
             colorScheme={"brand"}
             bgColor={'brand.400'}

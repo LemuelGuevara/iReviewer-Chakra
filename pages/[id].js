@@ -4,10 +4,15 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
 import { useSession, getProviders, getSession } from "next-auth/react";
-import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { onSnapshot } from "firebase/firestore";
 import { db } from "../app/firebaseApp";
-import { Document, Page, pdfjs } from "react-pdf";
+// import {
+//   MdOutlineCloudDownload,
+//   MdDelete,
+//   MdArrowBackIosNew,
+// } from "react-icons/md";
+import PdfViewer from "../components/modules/PdfViewer";
+
 import {
   Box,
   Text,
@@ -15,30 +20,20 @@ import {
   Stack,
   Avatar,
   Button,
-  IconButton,
+  HStack,
   Center,
-  Spinner,
-  Heading,
   Container,
+  Icon,
+  CloseButton,
 } from "@chakra-ui/react";
-import {
-  addDoc,
-  collection,
-  doc,
-  serverTimestamp,
-  updateDoc,
-} from "@firebase/firestore";
-import { IoIosArrowBack } from "react-icons/io";
-import SignUp from "../components/modules/SignUp"
+import { addDoc, collection, doc } from "@firebase/firestore";
+import DeleteDownload from "../components/modules/DeleteDownload";
 
 function ReviewerPage({ providers }) {
   const { data: session } = useSession();
   const router = useRouter();
   const { id } = router.query;
   const [reviewers, setReviewers] = useState([]);
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
-  pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
 
   useEffect(
     () =>
@@ -48,19 +43,8 @@ function ReviewerPage({ providers }) {
     [id]
   );
 
-  function onDocumentLoadSuccess({ numPages }) {
-    setNumPages(numPages);
-    setPageNumber(1);
-  }
-
-  function changePage(offSet) {
-    setPageNumber((prevPageNumber) => prevPageNumber + offSet);
-  }
-
-  if (!session) return <SignUp providers={providers} />;
-
   return (
-    <div className={styles.container}>
+    <div className={styles.reviewer}>
       <Head>
         <title>
           {reviewers?.title} by {reviewers?.username}
@@ -68,101 +52,84 @@ function ReviewerPage({ providers }) {
         <meta name="description" content="iReviewer" />
         <link rel="icon" href="/iReviewer-Logo-Small.svg" />
       </Head>
-      <>
-        <div>
-        <Box bg={"white"} mt={6}>
-          <IconButton
-            colorScheme={"brand"}
-            size="md"
-            borderRadius={"2xl"}
-            icon={<IoIosArrowBack />}
-            fontSize={25}
-            onClick={() => router.push("/")}
+
+      {/* Header */}
+
+      <div className={styles.header}>
+        <Flex
+          justifyContent={"space-between"}
+          alignItems="center"
+          mx={4}
+          mt={2}
+          h="60px"
+          width={"auto"}
+        >
+          <CloseButton
+            fontSize="md"
+            mt={2}
+            color={"gray"}
+            onClick={() => router.push("/home")}
           />
-        </Box>
-        <Box>
-          <Flex
-            alignItems={"center"}
-            justifyContent={"space-between"}
-            // bg="blue.400"
-            p={6}
-            mx={{ sm: 24, md: 60, base: 80 }}
-            mt={6}
-          >
-            <Stack m={2} direction={"row"} spacing={4} align={"center"}>
-              <Avatar size={"md"} src={reviewers?.userImg} />
-              <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-                <Text
-                  fontWeight={700}
-                  textTransform="capitalize"
-                  fontSize={"lg"}
-                  noOfLines={1}
-                >
-                  {reviewers?.title}
-                </Text>
-                <Text
-                  fontWeight={400}
-                  textTransform="capitalize"
-                  fontSize={"sm"}
-                  noOfLines={1}
-                >
-                  {reviewers?.username}
-                </Text>
-              </Stack>
-            </Stack>
-            <Flex alignItems={"center"}>
-              <a
-                target="_blank"
-                href={reviewers?.pdf}
-                rel="noopener noreferrer"
-              >
-                <Button
-                  variant={"primary-md"}
-                  size={"sm"}
-                  mr={4}
-                  px={4}
-                  display={{ base: "none", md: "flex" }}
-                  fontWeight={600}
-                  // onClick={() => router.push(reviewers?.pdf)}
-                >
-                  Download
-                </Button>
-              </a>
-            </Flex>
+          <Flex display={{ base: "flex", md: "none" }}>
+            <DeleteDownload />
           </Flex>
-        </Box>
-        </div>
-        <div className="">
-          <Box bg={"white"} borderRadius={"2xl"} width="full" p={12}>
-            <Center>
-              <Document
-                file={{
-                  url: reviewers?.pdf,
-                }}
-                loading={
-                  <div>
-                    <Center>
-                      <Spinner
-                        thickness="4px"
-                        speed="0.65s"
-                        emptyColor="gray.200"
-                        color="blue.300"
-                        size="xl"
-                      />
-                    </Center>
-                  </div>
-                }
-                onLoadSuccess={onDocumentLoadSuccess}
-                onLoadError={(error) => console.log("Inside Error", error)}
+        </Flex>
+      </div>
+
+      {/* Main Container */}
+
+      <div>
+        <Container maxW={"full"} maxH={"full"} mt={2} borderTopRadius={"xl"}>
+          <Stack direction={"column"}>
+            <Box>
+              <Flex
+                alignItems={"center"}
+                justifyContent={"space-around"}
+                // bg="blue.400"
+                p={4}
+                mx={{ sm: 2, md: 24, lg: 40 }}
+                mt={6}
+                mb={6}
               >
-                {Array.from(new Array(numPages), (el, index) => (
-                  <Page key={`page_${index + 1}`} pageNumber={index + 1}/>
-                ))}
-              </Document>
+                <Stack m={2} direction={"row"} spacing={4} align={"center"}>
+                  <Avatar size={"md"} src={reviewers?.userImg} />
+                  <Stack direction={"column"} spacing={0} fontSize={"sm"}>
+                    <Text
+                      fontWeight={700}
+                      textTransform="capitalize"
+                      fontSize={"lg"}
+                      noOfLines={1}
+                    >
+                      {reviewers?.title}
+                    </Text>
+                    <Text
+                      fontWeight={400}
+                      textTransform="capitalize"
+                      fontSize={"sm"}
+                      noOfLines={1}
+                    >
+                      {reviewers?.username}
+                    </Text>
+                  </Stack>
+                </Stack>
+
+                {/* Download/delete */}
+                <Flex display={{ base: "none", md: "flex" }}>
+                  <DeleteDownload />
+                </Flex>
+              </Flex>
+            </Box>
+
+            {/* PdfViewer */}
+
+            <Center>
+              <div className="all-page-container">
+                <PdfViewer pdf={reviewers?.pdf} />
+              </div>
             </Center>
-          </Box>
-        </div>
-      </>
+          </Stack>
+        </Container>
+      </div>
     </div>
   );
 }

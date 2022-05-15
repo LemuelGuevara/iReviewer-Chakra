@@ -40,7 +40,7 @@ export default function NotFound() {
             src={"/page-about.svg"}
           />
         </Box>
-        <Link href={'/'}>
+        <Link href={'/home'}>
           <Button
             colorScheme={"brand"}
             bgColor={'brand.400'}
