@@ -70,11 +70,11 @@ export default function UploadModal() {
 
     setLoading(false);
     setTitle("");
-    setSelectedFile(null);
+    setSelectedFile(null)
     setCourse("");
   };
 
-  const clearInput = async (useCa) => {
+  const clearInput = async () => {
     if (!setTitle) return;
     setTitle("");
     setCourse("");
