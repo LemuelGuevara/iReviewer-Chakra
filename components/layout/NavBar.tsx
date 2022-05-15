@@ -91,7 +91,7 @@ export default function NavBar() {
                 <MenuItem>{session?.user?.name}</MenuItem>
                 {/* <MenuItem>Settings</MenuItem> */}
                 <MenuDivider />
-                <MenuItem onClick={signOut}>Sign Out</MenuItem>
+                <MenuItem onClick={() => signOut}>Sign Out</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
