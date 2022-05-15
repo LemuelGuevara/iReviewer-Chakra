@@ -21,6 +21,7 @@ import { Logo } from "../../public/_logo";
 import NextLink from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import UploadModal from "../modules/UploadModal"
+import NavAvatar from "../elements/NavAvatar"
 
 const Links = ["home", "profile", "about"];
 
@@ -84,11 +85,11 @@ export default function NavBar() {
                 cursor={"pointer"}
                 minW={0}
               >
-                <Avatar size={"sm"} src={session?.user?.image} />
+                <NavAvatar/>
               </MenuButton>
               <MenuList>
                 <MenuItem>{session?.user?.name}</MenuItem>
-                <MenuItem>Settings</MenuItem>
+                {/* <MenuItem>Settings</MenuItem> */}
                 <MenuDivider />
                 <MenuItem onClick={signOut}>Sign Out</MenuItem>
               </MenuList>
