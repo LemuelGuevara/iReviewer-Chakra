@@ -19,8 +19,6 @@ import {
   Text,
   Flex,
 } from "@chakra-ui/react";
-import UploadDropzone from "./UploadDropzone";
-import { IoCloseCircleOutline } from "react-icons/io5";
 import { db, storage } from "../../app/firebaseApp";
 import {
   addDoc,
@@ -71,16 +69,16 @@ export default function UploadModal() {
     }
 
     setLoading(false);
-    setSelectedFile(null);
     setTitle("");
+    setSelectedFile(null);
     setCourse("");
   };
 
-  const clearInput = async () => {
+  const clearInput = async (useCa) => {
     if (!setTitle) return;
     setTitle("");
     setCourse("");
-    setSelectedFile(null);
+    // setSelectedFile(null);
     document.getElementById('file').value = null;
   };
 
