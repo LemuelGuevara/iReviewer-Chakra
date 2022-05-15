@@ -55,7 +55,7 @@ export default function HeroBanner({ providers }) {
             </Text>
           </Heading>
           <Text color={"gray.500"}>
-            iReviewer is a plotform where students can freely share their
+            iReviewer is a platform where students can freely share their
             reviewers online with ease. Download and upload through the cloud.
           </Text>
           <Stack
