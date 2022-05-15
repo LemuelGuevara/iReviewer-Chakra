@@ -70,7 +70,7 @@ export default function UploadModal() {
 
     setLoading(false);
     setTitle("");
-    setSelectedFile(null)
+    setSelectedFile(null);
     setCourse("");
   };
 
@@ -79,7 +79,7 @@ export default function UploadModal() {
     setTitle("");
     setCourse("");
     setSelectedFile(null);
-    document.getElementById('file').value = null;
+    document.getElementById("file").value = null;
   };
 
   const addPDF = (e) => {
@@ -134,6 +134,7 @@ export default function UploadModal() {
                     onChange={addPDF}
                     disabled={!title && !course}
                     id={"file"}
+                    accept=".pdf"
                   />
                 </div>
               )}
