@@ -1,6 +1,14 @@
 import React from "react";
-import { Avatar, Menu, MenuButton, MenuItem, MenuList, MenuDivider, Button} from "@chakra-ui/react";
-import { signOut, useSession} from "next-auth/react";
+import {
+  Avatar,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  MenuDivider,
+  Button,
+} from "@chakra-ui/react";
+import { signOut, useSession } from "next-auth/react";
 
 function NavAvatar() {
   const { data: session } = useSession();
@@ -21,7 +29,11 @@ function NavAvatar() {
           <MenuItem>{session?.user?.name}</MenuItem>
           {/* <MenuItem>Settings</MenuItem> */}
           <MenuDivider />
-          <MenuItem onClick={signOut}>Sign Out</MenuItem>
+          <MenuItem
+            onClick={() => signOut({ callbackUrl: "/" })}
+          >
+            Sign Out
+          </MenuItem>
         </MenuList>
       </Menu>
     </div>
