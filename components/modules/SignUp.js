@@ -27,7 +27,7 @@ export default function SignUp({ providers }) {
     <>
       <Container maxW={"7xl"}>
         {Object.values(providers).map((provider) => (
-          <div key={provider.name}>
+          <>
             <Stack
               align={"center"}
               spacing={{ base: 8, md: 10 }}
@@ -72,7 +72,7 @@ export default function SignUp({ providers }) {
                 >
                   <div key={provider.name}>
                     <Button variant={"primary-md"} px={5} onClick={onOpen}>
-                      Sigin In
+                      Sign Up
                     </Button>
                     <Modal
                       isOpen={isOpen}
@@ -90,11 +90,11 @@ export default function SignUp({ providers }) {
                             variant={"primary-md"}
                             px={10}
                             onClick={() =>
-                              signIn(provider.id, { callbackUrl: "/" })
+                              signIn(provider.id, { callbackUrl: "/home" })
                             }
                           >
                             <Text fontWeight={600}>
-                              Sigin with {provider.name}
+                              Signin with {provider.name}
                             </Text>
                           </Button>
                         </ModalBody>
@@ -136,7 +136,7 @@ export default function SignUp({ providers }) {
                 />
               </Flex>
             </Stack>
-          </div>
+          </>
         ))}
       </Container>
     </>
