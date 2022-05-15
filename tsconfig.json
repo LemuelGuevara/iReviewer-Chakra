@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "theme/theme.tsx", "app/firebaseApp.js", "components/modules/Login.js", "components/modules/SignIn.js", "pages/index.js", "components/elements/HeroBanner.js", "components/modules/SignIn.jsx", "pages/_app.js", "components/layout/NavBar.js", "components/modules/UploadModal.js", "components/Layout.js", "components/modules/UploadDropzone.js", "components/modules/UploadDropzone.js", "components/modules/UploadModal.js", "components/modules/ReviewerCard.js", "components/layout/ReviewerGrid.js", "pages/home.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "theme/theme.tsx", "app/firebaseApp.js", "components/modules/Login.js", "components/modules/SignIn.js", "pages/index.js", "components/elements/HeroBanner.js", "components/modules/SignIn.jsx", "pages/_app.js", "components/layout/NavBar.js", "components/modules/UploadModal.js", "components/Layout.js", "components/modules/UploadDropzone.js", "components/modules/UploadDropzone.js", "components/modules/UploadModal.js", "components/modules/ReviewerCard.js", "components/layout/ReviewerGrid.js", "pages/home.js", "pages/profile.js", "pages/about.js"],
   "exclude": ["node_modules"]
 }

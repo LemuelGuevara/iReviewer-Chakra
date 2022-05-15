@@ -15,3 +15,27 @@ a {
   box-sizing: border-box;
 }
 
+/* For pdf */
+.react-pdf__Page {
+  margin-top: 20px;
+}
+.react-pdf__Page__textContent {
+  border: 1px solid rgb(204, 204, 204);
+  /* box-shadow: 3px 5px 5px 1px #ccc; */
+  border-radius: 5px;
+}
+
+.react-pdf__Page__annotations.annotationLayer {
+  padding: 2px;
+}
+
+.react-pdf__Page__canvas {
+  margin: 0 auto;
+}
+
+/* For all pages */
+.all-page-container {
+  height: 100%;
+  max-height: 100vh;
+  overflow: auto;
+}

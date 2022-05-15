@@ -1,6 +1,5 @@
 .container {
   padding: 0 2rem;
-  /* background-color: #0070f3; */
 }
 
 .main {
@@ -111,18 +110,6 @@
   margin-left: 0.5rem;
 }
 
-.viewer {
-  padding: 0 12rem;
-}
-
-.pageBackground {
-  /* position: absolute, */
-  /* minWidth: 100%,
-  minHeight: 100%, */
-  /* display: block, */
-  min-height: 100vh;
-  max-height: 100vh;
-}
 
 @media (max-width: 600px) {
   .grid {
