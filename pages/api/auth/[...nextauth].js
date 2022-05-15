@@ -10,6 +10,7 @@ export default NextAuth({
     }),
     // ...add more providers here
   ],
+  secret: process.env.NEXT_PUBLIC_SECRET,
   callbacks: {
     async session({ session, token }) {
       session.user.tag = session.user.name
@@ -21,5 +22,4 @@ export default NextAuth({
       return session;
     },
   },
-  secret: process.env.JWT_SECRET
 });
