@@ -50,7 +50,7 @@ export default function NavBar() {
 
   return (
     <>
-      <Box bg={"white"} px={4} boxShadow={"xl"} borderRadius={"xl"}>
+      <Box bg={"white"} px={4} boxShadow={"md"} borderRadius={"xl"}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             size={"md"}
@@ -86,6 +86,7 @@ export default function NavBar() {
               {Links.map((link) => (
                 <NavLink key={link}>{link}</NavLink>
               ))}
+              <UploadModal/>
             </Stack>
           </Box>
         ) : null}
