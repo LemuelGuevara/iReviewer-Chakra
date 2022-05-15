@@ -29,7 +29,6 @@ import { db, storage } from "../../app/firebaseApp";
 function ReviewerCard({ id, reviewer, reviewerPage }) {
   const router = useRouter();
   const [reviewers, setReviewers] = useState([]);
-  const { data: session } = useSession();
 
   useEffect(
     () =>
@@ -63,29 +62,6 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
               mb={4}
               pos={"relative"}
             >
-              {/* <IconButton icon={<MdDelete />} size="sm" /> */}
-              {session?.user?.uid === reviewer?.id ? (
-                <div>
-                  <Flex alignItems="items-center" justify={"right"}>
-                    <CloseButton
-                      color="gray"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        deleteDoc(doc(db, "reviewers", id));
-                        router.push("/");
-                      }}
-                    />
-                  </Flex>
-                </div>
-              ) : (
-                <div>
-                  <Flex alignItems="items-center" justify={"right"}>
-                    <Hide>
-                    <CloseButton/>
-                    </Hide>
-                  </Flex>
-                </div>
-              )}
               <Image
                 src="/card-preview.svg"
                 layout="fixed"
@@ -93,7 +69,6 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
                 width={100}
                 height={85}
               />
-              {/* <img src={reviewer?.pdf} layout={"fill"} alt=""/> */}
             </Box>
             <Text
               color={"black"}
