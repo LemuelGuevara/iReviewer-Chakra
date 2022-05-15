@@ -93,9 +93,10 @@ function ReviewerPage({ providers }) {
               <Avatar size={"md"} src={reviewers?.userImg} />
               <Stack direction={"column"} spacing={0} fontSize={"sm"}>
                 <Text
-                  fontWeight={800}
+                  fontWeight={700}
                   textTransform="capitalize"
-                  fontSize={"xl"}
+                  fontSize={"lg"}
+                  noOfLines={1}
                 >
                   {reviewers?.title}
                 </Text>
@@ -103,6 +104,7 @@ function ReviewerPage({ providers }) {
                   fontWeight={400}
                   textTransform="capitalize"
                   fontSize={"sm"}
+                  noOfLines={1}
                 >
                   {reviewers?.username}
                 </Text>
