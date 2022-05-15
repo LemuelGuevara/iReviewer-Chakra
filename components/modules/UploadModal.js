@@ -78,7 +78,7 @@ export default function UploadModal() {
     if (!setTitle) return;
     setTitle("");
     setCourse("");
-    // setSelectedFile(null);
+    setSelectedFile(null);
     document.getElementById('file').value = null;
   };
 
