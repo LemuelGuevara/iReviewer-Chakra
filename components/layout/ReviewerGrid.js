@@ -32,7 +32,7 @@ function ReviewerGrid() {
           setReviewers(snapshot.docs);
         }
       ),
-    [db]
+    []
   );
 
   return (

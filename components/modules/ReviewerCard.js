@@ -36,7 +36,7 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
       onSnapshot(doc(db, "reviewers", id), (snapshot) => {
         setReviewers(snapshot.data());
       }),
-    [db]
+    [id]
   );
 
   return (
