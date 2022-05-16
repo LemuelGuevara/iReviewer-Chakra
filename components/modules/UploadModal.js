@@ -17,8 +17,8 @@ import {
   useDisclosure,
   Progress,
   Text,
-  Alert,
-  AlertIcon,
+  Select,
+  Flex,
 } from "@chakra-ui/react";
 import { db, storage } from "../../app/firebaseApp";
 import {
@@ -36,9 +36,13 @@ export default function UploadModal() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [title, setTitle] = useState("");
   const [course, setCourse] = useState("");
+  const [value, setValue] = useState("")
   const [loading, setLoading] = useState(null);
   const { data: session } = useSession();
   const filePickerRef = useRef(null);
+
+  // Arrays
+  const programs = ["STEM", "ABM", "HUMMS"];
 
   // Firebase
   const uploadReviewer = async () => {
@@ -52,6 +56,7 @@ export default function UploadModal() {
       tag: session.user.tag,
       title: title,
       course: course,
+      curriculum: value,
       timestamp: serverTimestamp(),
     });
 
@@ -84,7 +89,6 @@ export default function UploadModal() {
     const reader = new FileReader();
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
-      
     }
     reader.onload = (readerEvent) => {
       setSelectedFile(readerEvent.target.result);
@@ -107,21 +111,38 @@ export default function UploadModal() {
           <ModalBody>
             <FormControl isRequired>
               <FormLabel htmlFor="title">Title</FormLabel>
-              <Input
-                name="Title"
-                type="text"
-                value={title}
-                placeholder="Name of the reviewer"
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <FormLabel htmlFor="course">Course</FormLabel>
-              <Input
-                name="Course"
-                type="text"
-                value={course}
-                placeholder="Name of the course or subject"
-                onChange={(e) => setCourse(e.target.value)}
-              />
+              <Stack direction={"column"} spacing={4}>
+                <Input
+                  name="Title"
+                  type="text"
+                  value={title}
+                  placeholder="Name of the reviewer"
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+                <FormLabel htmlFor="course">Course</FormLabel>
+                <Input
+                  name="Course"
+                  type="text"
+                  value={course}
+                  placeholder="Name of the course or subject"
+                  onChange={(e) => setCourse(e.target.value)}
+                />
+
+                <Stack>
+                  <FormLabel htmlFor="curriculum">Curriculum</FormLabel>
+                  <Select placeholder="Select Curriculum" value={value} onChange={(e) => setValue(e.target.value)}>
+                    {programs.map((program) => (
+                      <option
+                        key={program}
+                        value={program}
+                        defaultValue={programs[0].value}
+                      >
+                        {program}
+                      </option>
+                    ))}
+                  </Select>
+                </Stack>
+              </Stack>
             </FormControl>
             <Stack mt={5}>
               {!loading && (

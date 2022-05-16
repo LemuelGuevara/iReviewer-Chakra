@@ -1,48 +1,51 @@
-import Head from "next/head";
-import Layout from "../components/Layout";
-import ReviewerGrid from "../components/layout/ReviewerGrid";
-import styles from "../styles/Home.module.css";
-import { useRouter } from "next/router";
-import { useSession, getProviders, getSession } from "next-auth/react";
-import NavBar from "../../components/layout/NavBar"
+import {
+  SimpleGrid,
+} from "@chakra-ui/react";
+import ReviewerCard from "../../components/modules/ReviewerCard";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { onSnapshot, collection, query, orderBy } from "@firebase/firestore";
+import { db } from "../../app/firebaseApp";
+import NavBar from "../../components/layout/NavBar";
+import SubNav from "../../components/layout/SubNav"
 
-export default function HomePage() {
-  const router = useRouter();
-  const { status } = useSession({
-    required: true,
-    onUnauthenticated() {
-      // The user is not authenticated, handle it here.
-      router.push("/signin");
-    },
-  });
+function ReviewerGrid() {
+  const [reviewers, setReviewers] = useState([]);
+  const { data: session } = useSession();
+
+  useEffect(
+    () =>
+      onSnapshot(
+        query(collection(db, "reviewers"), orderBy("timestamp", "desc")),
+        (snapshot) => {
+          setReviewers(snapshot.docs);
+        }
+      ),
+    []
+  );
 
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>iReviewer - Discover the Latest Reviewers</title>
-        <meta name="description" content="Latest Reviewers" />
-        <link rel="icon" href="/iReviewer-Logo-Small.svg" />
-      </Head>
+    <div>
       <NavBar/>
-      <ReviewerGrid />
+      <SubNav/>
+      <SimpleGrid
+        minChildWidth={["250px", "250px", "200px", "245px"]}
+        columns={[2, 4]}
+        spacingX={"24px"}
+        spacingY={"24px"}
+        // p={[12, 1, 12, 16]}
+        p={[2, 12, 24, 12, 16]}
+      >
+        {reviewers.map((reviewer) => (
+          <ReviewerCard
+            key={reviewer.id}
+            id={reviewer.id}
+            reviewer={reviewer.data("curriculum" === "STEM")}
+          />
+        ))}
+      </SimpleGrid>
     </div>
   );
 }
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/signin",
-      },
-    };
-  }
-
-  return {
-    props: {
-      session,
-    },
-  };
-}
+export default ReviewerGrid;

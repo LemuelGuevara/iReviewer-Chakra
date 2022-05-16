@@ -4,22 +4,12 @@ import {
   Text,
   Stack,
   Avatar,
-  useDisclosure,
-  IconButton,
-  Flex,
-  CloseButton,
-  Button,
-  VisuallyHidden,
-  Hide,
+  Divider
 } from "@chakra-ui/react";
 import {
-  addDoc,
-  collection,
-  doc,
-  serverTimestamp,
   updateDoc,
   onSnapshot,
-  deleteDoc,
+  doc
 } from "@firebase/firestore";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
@@ -81,9 +71,12 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
             >
               {reviewer?.title}
             </Text>
-            <Stack mt={"1"}>
+            <Stack direction={'row'} mt={"1"}>
               <Text color={"gray.500"} align={"left"} fontSize={"xs"}>
                 {reviewer?.course}
+              </Text>
+              <Text color={"gray.600"} align={"left"} fontWeight={500} fontSize={"xs"}>
+                {reviewer?.curriculum}
               </Text>
             </Stack>
             <Stack mt={3} direction={"row"} spacing={2} align={"center"}>
