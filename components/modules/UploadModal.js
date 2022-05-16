@@ -17,7 +17,8 @@ import {
   useDisclosure,
   Progress,
   Text,
-  Flex,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { db, storage } from "../../app/firebaseApp";
 import {
@@ -29,10 +30,7 @@ import {
 } from "@firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { useSession } from "next-auth/react";
-import { AiFillFileAdd } from "react-icons/ai";
 export default function UploadModal() {
-  // const infos = ["Title"];
-
   // States
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedFile, setSelectedFile] = useState(null);
@@ -57,13 +55,13 @@ export default function UploadModal() {
       timestamp: serverTimestamp(),
     });
 
-    const pdfRef = ref(storage, `reviewers/${docRef.id}/pdf`);
+    const pdfRef = ref(storage, `reviewers/${docRef.id}/${title}.pdf`);
 
     if (selectedFile) {
       await uploadString(pdfRef, selectedFile, "data_url").then(async () => {
         const downloadURL = await getDownloadURL(pdfRef);
         await updateDoc(doc(db, "reviewers", docRef.id), {
-          pdf: downloadURL + ".pdf",
+          pdf: downloadURL,
         });
       });
     }
@@ -86,6 +84,7 @@ export default function UploadModal() {
     const reader = new FileReader();
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
+      
     }
     reader.onload = (readerEvent) => {
       setSelectedFile(readerEvent.target.result);
@@ -128,14 +127,20 @@ export default function UploadModal() {
               {!loading && (
                 // <UploadDropzone setSelectedFile={setSelectedFile} />
                 <div>
-                  <input
-                    type="file"
-                    ref={filePickerRef}
-                    onChange={addPDF}
-                    disabled={!title && !course}
-                    id={"file"}
-                    accept=".pdf"
-                  />
+                  <Stack direction={"column"}>
+                    <Text as={"i"} color="gray.500" fontSize={"sm"}>
+                      Max size of 10mb only
+                    </Text>
+                    <input
+                      type="file"
+                      ref={filePickerRef}
+                      onChange={addPDF}
+                      disabled={!title && !course}
+                      id={"file"}
+                      accept=".pdf"
+                      // filter={filterBySize}
+                    />
+                  </Stack>
                 </div>
               )}
               {loading && <Progress size="xs" isIndeterminate />}
