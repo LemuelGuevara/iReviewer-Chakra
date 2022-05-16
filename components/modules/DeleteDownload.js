@@ -18,7 +18,7 @@ import {
   Button,
   Icon,
 } from "@chakra-ui/react";
-import { addDoc, collection, doc } from "@firebase/firestore";
+import { addDoc, collection, doc, deleteDoc } from "@firebase/firestore";
 
 function DeleteDownload() {
   const { data: session } = useSession();
