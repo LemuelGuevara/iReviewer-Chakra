@@ -8,8 +8,8 @@ function Layout() {
   return (
     <div className=''>
       <NavBar/>
-      <HeroBanner providers={undefined}/>
-      {/* <SubNav/> */}
+      <HeroBanner/>
+      <SubNav/>
     </div>
   )
 }
