@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import {
-  Center,
-  Spinner,
-  CircularProgress
-} from "@chakra-ui/react";
+import { Center, SkeletonText, CircularProgress, Text } from "@chakra-ui/react";
 
 export default function PdfViewer(props) {
   const [numPages, setNumPages] = useState(null);
@@ -23,13 +19,7 @@ export default function PdfViewer(props) {
       loading={
         <div>
           <Center>
-            <Spinner
-              thickness="4px"
-              speed="0.65s"
-              emptyColor="gray.200"
-              color="blue.300"
-              size="xl"
-            />
+            <CircularProgress isIndeterminate color="blue.300" />
           </Center>
         </div>
       }
@@ -37,36 +27,21 @@ export default function PdfViewer(props) {
       onLoadError={(error) => console.log("Inside Error", error)}
     >
       {Array.from(new Array(numPages), (el, index) => (
-        <Page key={`page_${index + 1}`} pageNumber={index + 1} />
+        <Page
+          key={`page_${index + 1}`}
+          pageNumber={index + 1}
+          scale={1}
+          renderMode={"canvas"}
+          renderTextLayer={true}
+          loading={
+            <div>
+              <Center>
+                <CircularProgress isIndeterminate color="blue.300" />
+              </Center>
+            </div>
+          }
+        />
       ))}
-    </Document>
-  );
-}
-
-export function PdfPreview(props) {
-  const [numPages, setNumPages] = useState(null);
-
-  function onDocumentLoadSuccess({ numPages }) {
-    setNumPages(numPages);
-    setPageNumber(1);
-  }
-
-  const { pdf } = props;
-
-  return (
-    <Document
-      size="A4"
-      file={pdf}
-      loading={
-        <div>
-          <Center>
-          <CircularProgress isIndeterminate color='blue.300'/>
-          </Center>
-        </div>
-      }
-      onLoadSuccess={onDocumentLoadSuccess}
-      onLoadError={(error) => console.log("Inside Error", error)}
-    >
     </Document>
   );
 }
