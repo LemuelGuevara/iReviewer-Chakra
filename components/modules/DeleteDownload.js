@@ -49,7 +49,7 @@ function DeleteDownload() {
                 onClick={(e) => {
                   e.stopPropagation();
                   deleteDoc(doc(db, "reviewers", id));
-                  router.push("/home");
+                  router.push("/");
                 }}
               >
                 <Icon as={MdDelete} fontSize="lg" />

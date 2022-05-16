@@ -68,7 +68,7 @@ function ReviewerPage({ providers }) {
             fontSize="md"
             mt={2}
             color={"gray"}
-            onClick={() => router.push("/home")}
+            onClick={() => router.push("/")}
           />
           <Flex display={{ base: "flex", md: "none" }}>
             <DeleteDownload />

@@ -11,7 +11,7 @@ export default function HomePage() {
     required: true,
     onUnauthenticated() {
       // The user is not authenticated, handle it here.
-      router.push("/");
+      router.push("/signin");
     },
   });
 
@@ -34,7 +34,7 @@ export async function getServerSideProps(context) {
     return {
       redirect: {
         permanent: false,
-        destination: "/",
+        destination: "/signin",
       },
     };
   }
@@ -45,4 +45,3 @@ export async function getServerSideProps(context) {
     },
   };
 }
-
