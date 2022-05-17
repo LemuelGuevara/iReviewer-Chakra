@@ -7,24 +7,25 @@ import { db } from "../../app/firebaseApp";
 import {
   MdOutlineCloudDownload,
   MdDelete,
-  MdArrowBackIosNew,
 } from "react-icons/md";
 import {
-  Box,
-  Text,
   Flex,
   Stack,
-  Avatar,
   Button,
   Icon,
 } from "@chakra-ui/react";
 import { addDoc, collection, doc, deleteDoc } from "@firebase/firestore";
+import { deleteObject, ref, getStorage } from "firebase/storage";
+import { pdfRef } from "../modules/UploadModal"
 
-function DeleteDownload() {
+function DeleteDownload({ title }) {
   const { data: session } = useSession();
   const router = useRouter();
   const { id } = router.query;
   const [reviewers, setReviewers] = useState([]);
+
+  const storage = getStorage()
+  const pdfRef = ref(storage, `reviewers/${id}/${title}.pdf`)
 
   useEffect(
     () =>
@@ -33,6 +34,13 @@ function DeleteDownload() {
       }),
     [id]
   );
+
+  // Delete firebase file
+
+  const deleteFile = async () => {
+    deleteDoc(doc(db, "reviewers", id))
+    deleteObject(pdfRef)
+  }
 
   return (
     <div>
@@ -44,11 +52,10 @@ function DeleteDownload() {
                 variant={"secondary-md"}
                 size={"sm"}
                 px={3}
-                // display={{ base: "none", md: "flex" }}
                 fontWeight={600}
                 onClick={(e) => {
                   e.stopPropagation();
-                  deleteDoc(doc(db, "reviewers", id));
+                  deleteFile()
                   router.push("/");
                 }}
               >
@@ -63,7 +70,6 @@ function DeleteDownload() {
                   variant={"primary-md"}
                   size={"sm"}
                   px={3}
-                //   display={{ base: "none", md: "flex" }}
                   fontWeight={600}
                   leftIcon={<MdOutlineCloudDownload />}
                 >
