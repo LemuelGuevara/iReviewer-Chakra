@@ -24,6 +24,7 @@ function DeleteDownload({ title }) {
   const { id } = router.query;
   const [reviewers, setReviewers] = useState([]);
 
+  // Get firebase storage
   const storage = getStorage()
   const pdfRef = ref(storage, `reviewers/${id}/${title}.pdf`)
 

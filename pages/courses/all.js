@@ -7,8 +7,7 @@ import {
   onSnapshot,
   collection,
   query,
-  orderBy,
-  where,
+  orderBy
 } from "@firebase/firestore";
 import { db } from "../../app/firebaseApp";
 import styles from "../../styles/Home.module.css";
@@ -40,7 +39,6 @@ function ReviewerGrid() {
 
       <div>
         <NavBar />
-        
         <SubNav />
         <SimpleGrid
           minChildWidth={["250px", "250px", "200px", "245px"]}
