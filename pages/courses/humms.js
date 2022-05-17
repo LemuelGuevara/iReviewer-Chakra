@@ -33,7 +33,7 @@ function ReviewerGrid() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>iReviewer - Discover the Latest Reviewers</title>
+        <title>iReviewer - Discover the Latest HUMMS Reviewers</title>
         <meta name="description" content="Latest Reviewers" />
         <link rel="icon" href="/iReviewer-Logo-Small.svg" />
       </Head>
