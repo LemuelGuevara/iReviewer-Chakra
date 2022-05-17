@@ -86,6 +86,7 @@ export default function UploadModal() {
     setTitle("");
     setCourse("");
     setSelectedFile(null);
+    setValue("")
     setShowAlert(false);
     document.getElementById("file").value = null;
   };
@@ -174,7 +175,6 @@ export default function UploadModal() {
                       type="file"
                       ref={filePickerRef}
                       onChange={addPDF}
-                      disabled={!title && !course}
                       id={"file"}
                       accept=".pdf"
                     />
@@ -191,7 +191,7 @@ export default function UploadModal() {
                 variant={"primary-md"}
                 mr={3}
                 onClick={uploadReviewer}
-                isDisabled={!title}
+                isDisabled={!value}
               >
                 Upload
               </Button>

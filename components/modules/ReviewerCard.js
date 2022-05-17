@@ -76,7 +76,7 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
                 {reviewer?.course}
               </Text>
             </Stack>
-            <Stack mt={3} direction={"row"} spacing={2} align={"center"}>
+            <Stack mt={3} direction={"row"} spacing={2} align={"left"}>
               <Avatar size={"xs"} src={reviewer?.userImg} />
               <Stack direction={"column"} spacing={0} fontSize={"sm"}>
                 <Text fontWeight={600} textTransform="capitalize" noOfLines={1}>
