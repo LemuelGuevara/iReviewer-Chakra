@@ -99,7 +99,7 @@ function SignUp({ providers }) {
                       >
                         <ModalOverlay />
                         <ModalContent alignItems={"center"}>
-                          <ModalHeader>Sigin In</ModalHeader>
+                          <ModalHeader>Sign In</ModalHeader>
                           <ModalCloseButton />
                           <ModalBody alignItems={"center"}>
                             <Button
