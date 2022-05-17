@@ -6,24 +6,15 @@ import { useRouter } from "next/router";
 import { useSession, getProviders, getSession } from "next-auth/react";
 import { onSnapshot } from "firebase/firestore";
 import { db } from "../app/firebaseApp";
-// import {
-//   MdOutlineCloudDownload,
-//   MdDelete,
-//   MdArrowBackIosNew,
-// } from "react-icons/md";
 import PdfViewer from "../components/modules/PdfViewer";
-
 import {
   Box,
   Text,
   Flex,
   Stack,
   Avatar,
-  Button,
-  HStack,
   Center,
   Container,
-  Icon,
   CloseButton,
 } from "@chakra-ui/react";
 import { addDoc, collection, doc } from "@firebase/firestore";
@@ -115,7 +106,7 @@ function ReviewerPage({ providers }) {
 
                 {/* Download/delete */}
                 <Flex display={{ base: "none", md: "flex" }}>
-                  <DeleteDownload />
+                  <DeleteDownload title={reviewers?.title}/>
                 </Flex>
               </Flex>
             </Box>
