@@ -22,7 +22,7 @@ function ReviewerGrid() {
   useEffect(
     () =>
       onSnapshot(
-        query(collection(db, "reviewers"), where("curriculum", "==", "STEM")),
+        query(collection(db, "reviewers"), where("curriclum", "==", "HUMMS")),
         (snapshot) => {
           setReviewers(snapshot.docs);
         }
@@ -40,7 +40,7 @@ function ReviewerGrid() {
 
       <div>
         <NavBar />
-
+        
         <SubNav />
         <SimpleGrid
           minChildWidth={["250px", "250px", "200px", "245px"]}
