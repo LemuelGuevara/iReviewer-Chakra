@@ -22,7 +22,7 @@ function ReviewerGrid() {
   useEffect(
     () =>
       onSnapshot(
-        query(collection(db, "reviewers"), where("curriclum", "==", "HUMMS")),
+        query(collection(db, "reviewers"), where("strand", "==", "HUMMS")),
         (snapshot) => {
           setReviewers(snapshot.docs);
         }
