@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { Button, Stack, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 
-const courses = ["stem", "abm", "humms"];
+const courses = ["all", "stem", "abm", "humms"];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <NextLink href={"/courses/" + children} passHref>
@@ -15,6 +15,7 @@ const NavLink = ({ children }: { children: ReactNode }) => (
       color={"#00B0FF"}
       variant="outline"
       _hover={{ bg: "#A5E4FF" }}
+      textTransform="uppercase"
     >
       {children}
     </Button>
