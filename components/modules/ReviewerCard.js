@@ -75,9 +75,6 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
               <Text color={"gray.500"} align={"left"} fontSize={"xs"}>
                 {reviewer?.course}
               </Text>
-              <Text color={"gray.600"} align={"left"} fontWeight={500} fontSize={"xs"}>
-                {reviewer?.curriculum}
-              </Text>
             </Stack>
             <Stack mt={3} direction={"row"} spacing={2} align={"center"}>
               <Avatar size={"xs"} src={reviewer?.userImg} />
