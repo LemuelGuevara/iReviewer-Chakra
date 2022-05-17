@@ -16,11 +16,7 @@ import {
   useDisclosure,
   Progress,
   Text,
-<<<<<<< HEAD
-=======
-  Select,
-  Flex,
->>>>>>> dev
+  Select
 } from "@chakra-ui/react";
 import { db, storage } from "../../app/firebaseApp";
 import {
@@ -46,14 +42,10 @@ export default function UploadModal() {
   const { data: session } = useSession();
   const filePickerRef = useRef(null);
 
-<<<<<<< HEAD
-  // Firebase Upload
-=======
   // Arrays
   const programs = ["STEM", "ABM", "HUMMS"];
 
   // Firebase
->>>>>>> dev
   const uploadReviewer = async () => {
     if (loading) return;
     setLoading(true);
@@ -65,7 +57,7 @@ export default function UploadModal() {
       tag: session.user.tag,
       title: title,
       course: course,
-      curriculum: value,
+      strand: value,
       timestamp: serverTimestamp(),
     });
 
@@ -154,8 +146,8 @@ export default function UploadModal() {
                 />
 
                 <Stack>
-                  <FormLabel htmlFor="curriculum">Curriculum</FormLabel>
-                  <Select placeholder="Select Curriculum" value={value} onChange={(e) => setValue(e.target.value)}>
+                  <FormLabel htmlFor="strand">Strand</FormLabel>
+                  <Select placeholder="Select Strand" value={value} onChange={(e) => setValue(e.target.value)}>
                     {programs.map((program) => (
                       <option
                         key={program}
