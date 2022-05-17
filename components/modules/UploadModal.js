@@ -146,8 +146,8 @@ export default function UploadModal() {
                 />
 
                 <Stack>
-                  <FormLabel htmlFor="strand">Strand</FormLabel>
-                  <Select placeholder="Select Strand of Specified Course" value={value} onChange={(e) => setValue(e.target.value)}>
+                  <FormLabel htmlFor="strand">Strand of Specified Course</FormLabel>
+                  <Select placeholder="Select Strand" value={value} onChange={(e) => setValue(e.target.value)}>
                     {programs.map((program) => (
                       <option
                         key={program}
