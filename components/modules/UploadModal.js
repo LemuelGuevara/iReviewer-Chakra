@@ -1,5 +1,4 @@
 import React, { Children, ReactNode, useState, useRef } from "react";
-import Image from "next/image";
 import {
   Modal,
   ModalOverlay,
@@ -17,8 +16,6 @@ import {
   useDisclosure,
   Progress,
   Text,
-  Alert,
-  AlertIcon,
 } from "@chakra-ui/react";
 import { db, storage } from "../../app/firebaseApp";
 import {
@@ -30,6 +27,8 @@ import {
 } from "@firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { useSession } from "next-auth/react";
+import SizeAlert from "../elements/SizeAlert";
+
 export default function UploadModal() {
   // States
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -37,10 +36,11 @@ export default function UploadModal() {
   const [title, setTitle] = useState("");
   const [course, setCourse] = useState("");
   const [loading, setLoading] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
   const { data: session } = useSession();
   const filePickerRef = useRef(null);
 
-  // Firebase
+  // Firebase Upload
   const uploadReviewer = async () => {
     if (loading) return;
     setLoading(true);
@@ -70,25 +70,40 @@ export default function UploadModal() {
     setTitle("");
     setSelectedFile(null);
     setCourse("");
+    console.log(pdfRef);
   };
+
+  // Clear Form
 
   const clearInput = async () => {
     if (!setTitle) return;
     setTitle("");
     setCourse("");
     setSelectedFile(null);
+    setShowAlert(false);
     document.getElementById("file").value = null;
   };
 
+  // Add PDF file
   const addPDF = (e) => {
     const reader = new FileReader();
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
-      
     }
-    reader.onload = (readerEvent) => {
-      setSelectedFile(readerEvent.target.result);
-    };
+
+    // File Size validation
+
+    if (e.target.files[0].size > 10e6) {
+      setShowAlert(true);
+      return false;
+    }
+    if (e.target.files[0].size < 10e6) {
+      setShowAlert(false);
+
+      reader.onload = (readerEvent) => {
+        setSelectedFile(readerEvent.target.result);
+      };
+    }
   };
 
   // UploadForm
@@ -128,6 +143,7 @@ export default function UploadModal() {
                 // <UploadDropzone setSelectedFile={setSelectedFile} />
                 <div>
                   <Stack direction={"column"}>
+                    {showAlert && <SizeAlert />}
                     <Text as={"i"} color="gray.500" fontSize={"sm"}>
                       Max size of 10mb only
                     </Text>
@@ -138,7 +154,6 @@ export default function UploadModal() {
                       disabled={!title && !course}
                       id={"file"}
                       accept=".pdf"
-                      // filter={filterBySize}
                     />
                   </Stack>
                 </div>
