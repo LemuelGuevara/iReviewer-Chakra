@@ -72,7 +72,7 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
               {reviewer?.title}
             </Text>
             <Stack direction={'row'} mt={"1"}>
-              <Text color={"gray.500"} align={"left"} fontSize={"xs"}>
+              <Text color={"gray.500"} align={"left"} fontSize={"xs"} noOfLines={1}>
                 {reviewer?.course}
               </Text>
             </Stack>
