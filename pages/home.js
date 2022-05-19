@@ -22,7 +22,6 @@ export default function HomePage() {
         <meta name="description" content="Latest Reviewers" />
         <link rel="icon" href="/iReviewer-Logo-Small.svg" />
       </Head>
-      <Layout />
       <ReviewerGrid />
     </div>
   );

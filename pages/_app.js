@@ -1,14 +1,18 @@
-import "../styles/globals.css";
-import { ChakraProvider } from "@chakra-ui/react";
+import styles from "../styles/Home.module.css";
+import { ChakraProvider, StylesProvider } from "@chakra-ui/react";
 import { SessionProvider } from "next-auth/react";
 import { motion } from "framer-motion";
 import theme from "../theme/theme";
+import Layout from "../components/Layout";
 
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
   router,
 }) {
+  // if (Component.getLayout) {
+  //   return Component.getLayout(<Component {...pageProps} />);
+  // }
   return (
     // `session` comes from `getServerSideProps` or `getInitialProps`.
     // Avoids flickering/session loading on first load.
@@ -27,7 +31,8 @@ export default function App({
         }}
       >
         <ChakraProvider theme={theme}>
-          <Component {...pageProps} />
+          <Layout />
+            <Component {...pageProps} />
         </ChakraProvider>
       </motion.div>
     </SessionProvider>

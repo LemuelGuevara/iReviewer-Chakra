@@ -19,9 +19,10 @@ import {
 } from "@chakra-ui/react";
 import { addDoc, collection, doc } from "@firebase/firestore";
 import DeleteDownload from "../components/modules/DeleteDownload";
+import NavBar from "../components/layout/NavBar";
+import SubNav from "../components/layout/SubNav";
 
 function ReviewerPage({ providers }) {
-  const { data: session } = useSession();
   const router = useRouter();
   const { id } = router.query;
   const [reviewers, setReviewers] = useState([]);
@@ -124,6 +125,15 @@ function ReviewerPage({ providers }) {
     </div>
   );
 }
+
+ReviewerPage.getLayout = function getLayout(page) {
+  return (
+    <>
+      {page}
+    </>
+  )
+}
+
 
 export async function getServerSideProps(context) {
   const providers = await getProviders();

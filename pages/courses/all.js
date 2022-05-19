@@ -14,9 +14,8 @@ import styles from "../../styles/Home.module.css";
 import NavBar from "../../components/layout/NavBar";
 import SubNav from "../../components/layout/SubNav";
 
-function ReviewerGrid() {
+function All() {
   const [reviewers, setReviewers] = useState([]);
-  const { data: session } = useSession();
 
   useEffect(
     () =>
@@ -38,8 +37,6 @@ function ReviewerGrid() {
       </Head>
 
       <div>
-        <NavBar />
-        <SubNav />
         <SimpleGrid
           minChildWidth={["250px", "250px", "200px", "245px"]}
           columns={[2, 4]}
@@ -61,4 +58,14 @@ function ReviewerGrid() {
   );
 }
 
-export default ReviewerGrid;
+export default All;
+
+All.getLayout = function PageLayout(page) {
+  return (
+    <>
+      <NavBar/>
+      <SubNav/>
+      {page}
+    </>
+  )
+}

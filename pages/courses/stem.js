@@ -17,7 +17,6 @@ import SubNav from "../../components/layout/SubNav";
 
 function ReviewerGrid() {
   const [reviewers, setReviewers] = useState([]);
-  const { data: session } = useSession();
 
   useEffect(
     () =>
@@ -39,9 +38,6 @@ function ReviewerGrid() {
       </Head>
 
       <div>
-        <NavBar />
-
-        <SubNav />
         <SimpleGrid
           minChildWidth={["250px", "250px", "200px", "245px"]}
           columns={[2, 4]}
@@ -54,7 +50,7 @@ function ReviewerGrid() {
             <ReviewerCard
               key={reviewer.id}
               id={reviewer.id}
-              reviewer={reviewer.data("")}
+              reviewer={reviewer.data()}
             />
           ))}
         </SimpleGrid>
@@ -63,4 +59,14 @@ function ReviewerGrid() {
   );
 }
 
-export default ReviewerGrid;
+ReviewerGrid.getLayout = function getLayout(page) {
+  return (
+    <>
+      <NavBar/>
+      <SubNav/>
+      {page}
+    </>
+  )
+}
+
+export default ReviewerGrid

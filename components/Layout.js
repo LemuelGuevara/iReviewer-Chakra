@@ -1,17 +1,18 @@
-import Head from 'next/head'
-import NavBar from './layout/NavBar'
-import HeroBanner from './elements/HeroBanner'
-import SubNav from './layout/SubNav'
-import ReviewerGrid from './layout/ReviewerGrid'
+import Head from "next/head";
+import NavBar from "./layout/NavBar";
+import HeroBanner from "./elements/HeroBanner";
+import SubNav from "./layout/SubNav";
+import ReviewerGrid from "./layout/ReviewerGrid";
 
 function Layout() {
   return (
-    <div className=''>
-      <NavBar/>
-      <HeroBanner/>
-      <SubNav/>
-    </div>
-  )
+    <>
+      <NavBar />
+      <HeroBanner />
+      <SubNav />
+      <ReviewerGrid />
+    </>
+  );
 }
 
-export default Layout
+export default Layout;
