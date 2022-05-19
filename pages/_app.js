@@ -10,31 +10,27 @@ export default function App({
   pageProps: { session, ...pageProps },
   router,
 }) {
-  // if (Component.getLayout) {
-  //   return Component.getLayout(<Component {...pageProps} />);
-  // }
-  return (
-    // `session` comes from `getServerSideProps` or `getInitialProps`.
-    // Avoids flickering/session loading on first load.
-    <SessionProvider session={session}>
-      <motion.div
-        key={router.router}
-        initial="pageInitial"
-        animate="pageAnimate"
-        variants={{
-          pageInitial: {
-            opacity: 0,
-          },
-          pageAnimate: {
-            opacity: 1,
-          },
-        }}
-      >
-        <ChakraProvider theme={theme}>
-          <Layout />
-            <Component {...pageProps} />
-        </ChakraProvider>
-      </motion.div>
-    </SessionProvider>
-  );
+  const getLayout = Component.getLayout || ((page) => page);
+  <SessionProvider session={session}>
+    return getLayout(
+    <motion.div
+      key={router.router}
+      initial="pageInitial"
+      animate="pageAnimate"
+      variants={{
+        pageInitial: {
+          opacity: 0,
+        },
+        pageAnimate: {
+          opacity: 1,
+        },
+      }}
+    >
+      <ChakraProvider theme={theme}>
+        <Layout />
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </motion.div>
+    )
+  </SessionProvider>;
 }
