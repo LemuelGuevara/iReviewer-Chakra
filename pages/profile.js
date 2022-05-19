@@ -28,7 +28,7 @@ export default function NotFound() {
           backgroundColor={'brand.300'}
           backgroundClip="text"
         >
-          They look like us, but are they us? I have so many questions.
+          Sadly the page is still under construction
         </Heading>
         <Box m={12}>
           <Image

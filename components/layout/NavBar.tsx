@@ -16,7 +16,7 @@ import { signOut, useSession } from "next-auth/react";
 import UploadModal from "../modules/UploadModal"
 import NavAvatar from "../elements/NavAvatar"
 
-const Links = ["home", "profile", "about"];
+const Links = ["home", "profile"];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <NextLink href={"/" + children} passHref>
