@@ -4,21 +4,33 @@ import {
   Text,
   Stack,
   Avatar,
-  Divider
+  Divider,
+  Flex,
+  HStack,
 } from "@chakra-ui/react";
 import {
   updateDoc,
   onSnapshot,
-  doc
+  doc,
+  setDoc,
+  deleteDoc,
+  addDoc,
+  collection
 } from "@firebase/firestore";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { db, storage } from "../../app/firebaseApp";
+import { AiFillHeart, AiFillEye, AiOutlineHeart } from "react-icons/ai";
 
 function ReviewerCard({ id, reviewer, reviewerPage }) {
   const router = useRouter();
+  const { data: session } = useSession();
+
   const [reviewers, setReviewers] = useState([]);
+  const [likes, setLikes] = useState([]);
+
+  const [liked, setLiked] = useState(false);
 
   useEffect(
     () =>
@@ -27,6 +39,32 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
       }),
     [id]
   );
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "reviewers", id, "likes"), (snapshot) =>
+        setLikes(snapshot.docs)
+      ),
+    [id]
+  );      
+
+  useEffect(
+    () =>
+      setLiked(
+        likes.findIndex((like) => like.id === session?.user?.uid) !== -1
+      ),
+    [likes, session?.user?.uid]
+  );
+
+  const likeReviewer = async () => {
+    if (liked) {
+      await deleteDoc(doc(db, "reviewers", id, "likes", session.user.uid))
+    } else {
+      await setDoc(doc(db, "reviewers", id, "likes", session.user.uid), {
+        username: session.user.uid
+      })
+    }
+  }
 
   return (
     <div>
@@ -50,6 +88,7 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
               mt={-6}
               mx={-6}
               mb={4}
+              overflow="hidden"
               pos={"relative"}
             >
               <Image
@@ -57,33 +96,65 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
                 layout="fixed"
                 alt=""
                 width={100}
-                height={85}
+                height={120}
               />
             </Box>
-            <Text
-              color={"black"}
-              textTransform={"uppercase"}
-              fontWeight={800}
-              fontSize={"sm"}
-              letterSpacing={1.1}
-              align={"left"}
-              noOfLines={1}
-            >
-              {reviewer?.title}
-            </Text>
-            <Stack direction={'row'} mt={"1"}>
-              <Text color={"gray.500"} align={"left"} fontSize={"xs"} noOfLines={1}>
-                {reviewer?.course}
+
+            {/* Footer */}
+            <Box>
+              <Text
+                color={"black"}
+                textTransform={"uppercase"}
+                fontWeight={800}
+                fontSize={"sm"}
+                letterSpacing={1.1}
+                align={"left"}
+                noOfLines={1}
+              >
+                {reviewer?.title}
               </Text>
-            </Stack>
-            <Stack mt={3} direction={"row"} spacing={2} align={"left"}>
-              <Avatar size={"xs"} src={reviewer?.userImg} />
-              <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-                <Text fontWeight={600} textTransform="capitalize" noOfLines={1}>
-                  {reviewer?.username}
+              <Stack direction={"row"}>
+                <Text
+                  color={"gray.500"}
+                  align={"left"}
+                  fontSize={"xs"}
+                  noOfLines={1}
+                  mt={2}
+                >
+                  {reviewer?.course}
                 </Text>
               </Stack>
-            </Stack>
+
+              <Flex justifyContent={"space-between"} alignItems="center" mt={3}>
+                <Stack direction={"row"} alignItems="center" textAlign={"left"}>
+                  <Avatar size={"xs"} src={reviewer?.userImg} />
+                  <Text fontWeight={600} noOfLines={1} fontSize="xs">
+                    {reviewer?.username}
+                  </Text>
+                </Stack>
+
+                <Stack
+                  direction={"row"}
+                  alignItems="center"
+                  fontSize={"xs"}
+                  spacing={1}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    likeReviewer();
+                  }}
+                  _groupHover={{
+                    color: "red",
+                  }}
+                >
+                  {liked ? (
+                    <AiFillHeart color="#00B0FF" _groupHover={{color: "red"}} />
+                  ) : (
+                    <AiFillHeart color="gray" />
+                  )}
+                  {likes.length > 0 && <Text>{likes.length}</Text>}
+                </Stack>
+              </Flex>
+            </Box>
           </Box>
         </div>
       )}
