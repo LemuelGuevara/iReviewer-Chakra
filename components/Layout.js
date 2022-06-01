@@ -9,7 +9,7 @@ function Layout() {
     <div className=''>
       <NavBar/>
       <HeroBanner/>
-      <SubNav/>
+      <SubNav />
     </div>
   )
 }
