@@ -15,8 +15,11 @@ import {
   setDoc,
   deleteDoc,
   addDoc,
-  collection
+  FieldValue,
+  collection,
+  deleteField,
 } from "@firebase/firestore";
+import countapi from 'countapi-js';
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -29,8 +32,9 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
 
   const [reviewers, setReviewers] = useState([]);
   const [likes, setLikes] = useState([]);
-
   const [liked, setLiked] = useState(false);
+
+  // const [viewCount, setViewCount] = useState([]);
 
   useEffect(
     () =>
@@ -46,7 +50,7 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
         setLikes(snapshot.docs)
       ),
     [id]
-  );      
+  );
 
   useEffect(
     () =>
@@ -58,13 +62,24 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
 
   const likeReviewer = async () => {
     if (liked) {
-      await deleteDoc(doc(db, "reviewers", id, "likes", session.user.uid))
+      await deleteDoc(doc(db, "reviewers", id, "likes", session.user.uid));
+      await updateDoc(doc(db, "reviewers", id), {
+        liked: deleteField(),
+      });
     } else {
       await setDoc(doc(db, "reviewers", id, "likes", session.user.uid), {
-        username: session.user.uid
-      })
+        username: session.user.uid,
+      });
+      await updateDoc(doc(db, "reviewers", id), {
+        liked: session.user.uid,
+      });
     }
-  }
+  };
+
+  const pageView = () => {
+    
+    }
+
 
   return (
     <div>
@@ -73,7 +88,10 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
           <Box
             flexShrink={1}
             as="button"
-            onClick={() => router.push(`/${id}`)}
+            onClick={() => {
+              router.push(`/${id}`);
+              pageView();
+            }}
             // maxW={{ sm: 350, md: 290 }}
             maxH={"600px"}
             w={"full"}
@@ -81,8 +99,18 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
             rounded={"xl"}
             p={6}
             overflow={"hidden"}
+            _hover={{
+              boxShadow: "2xl",
+            }}
           >
-            <Box
+            <Image
+              src="/card-preview.svg"
+              layout="fixed"
+              alt=""
+              width={100}
+              height={120}
+            />
+            {/* <Box
               h={"140px"}
               bg={"gray.100"}
               mt={-6}
@@ -91,14 +119,8 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
               overflow="hidden"
               pos={"relative"}
             >
-              <Image
-                src="/card-preview.svg"
-                layout="fixed"
-                alt=""
-                width={100}
-                height={120}
-              />
-            </Box>
+
+            </Box> */}
 
             {/* Footer */}
             <Box>
@@ -142,16 +164,15 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
                     e.stopPropagation();
                     likeReviewer();
                   }}
-                  _groupHover={{
-                    color: "red",
-                  }}
                 >
                   {liked ? (
-                    <AiFillHeart color="#00B0FF" _groupHover={{color: "red"}} />
+                    <AiFillHeart color="#00B0FF" />
                   ) : (
                     <AiFillHeart color="gray" />
                   )}
                   {likes.length > 0 && <Text>{likes.length}</Text>}
+                  <AiFillEye color="gray" />
+                  <Text>{pageView.viewCount}</Text>
                 </Stack>
               </Flex>
             </Box>
