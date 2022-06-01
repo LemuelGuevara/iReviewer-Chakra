@@ -1,9 +1,14 @@
 import Head from "next/head";
-import Layout from "../components/Layout";
 import ReviewerGrid from "../components/layout/ReviewerGrid";
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
 import { useSession, getProviders, getSession } from "next-auth/react";
+import NavBar from "../components/layout/NavBar";
+import HeroBanner from "../components/elements/HeroBanner";
+import SubNav from "../components/layout/SubNav";
+import { ChakraProvider } from "@chakra-ui/react";
+import theme from "../theme/theme";
+import LayoutHome from "../components/layouts/LayoutHome";
 
 export default function HomePage() {
   const router = useRouter();
@@ -22,8 +27,6 @@ export default function HomePage() {
         <meta name="description" content="Latest Reviewers" />
         <link rel="icon" href="/iReviewer-Logo-Small.svg" />
       </Head>
-      <Layout />
-      <ReviewerGrid />
     </div>
   );
 }
@@ -45,3 +48,16 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
+// HomePage.getLayout = function PageLayout(page) {
+//   return (
+//     <>
+//       <ChakraProvider theme={theme}>
+//         <HeroBanner/>
+//         <SubNav/>
+//         <ReviewerGrid/>
+//       </ChakraProvider>
+//     </>
+//   );
+// };
+HomePage.Layout = LayoutHome;

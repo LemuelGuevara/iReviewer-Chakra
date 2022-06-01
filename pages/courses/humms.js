@@ -12,10 +12,9 @@ import {
 } from "@firebase/firestore";
 import { db } from "../../app/firebaseApp";
 import styles from "../../styles/Home.module.css";
-import NavBar from "../../components/layout/NavBar";
-import SubNav from "../../components/layout/SubNav";
+import LayoutCourses from "../../components/layouts/LayoutCourses";
 
-function ReviewerGrid() {
+function HummsPage() {
   const [reviewers, setReviewers] = useState([]);
   const { data: session } = useSession();
 
@@ -39,12 +38,9 @@ function ReviewerGrid() {
       </Head>
 
       <div>
-        <NavBar />
-        
-        <SubNav />
         <SimpleGrid
-          minChildWidth={["250px", "250px", "200px", "245px"]}
-          columns={[2, 4]}
+          // minChildWidth={["250px", "250px", "200px", "245px"]}
+          columns={{base: 1, sm: 1, md: 2, lg: 3, xl: 4}}
           spacingX={"24px"}
           spacingY={"24px"}
           // p={[12, 1, 12, 16]}
@@ -63,4 +59,6 @@ function ReviewerGrid() {
   );
 }
 
-export default ReviewerGrid;
+export default HummsPage;
+
+HummsPage.Layout = LayoutCourses

@@ -4,8 +4,11 @@ import ReviewerGrid from "../components/layout/ReviewerGrid";
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
 import { useSession, getProviders, getSession } from "next-auth/react";
+import HeroBanner from "../components/elements/HeroBanner";
+import SubNav from "../components/layout/SubNav";
+import LayoutHome from "../components/layouts/LayoutHome"
 
-export default function HomePage() {
+export default function Home() {
   const router = useRouter();
   const { status } = useSession({
     required: true,
@@ -22,8 +25,9 @@ export default function HomePage() {
         <meta name="description" content="Latest Reviewers" />
         <link rel="icon" href="/iReviewer-Logo-Small.svg" />
       </Head>
-      <Layout />
-      <ReviewerGrid />
+      {/* <HeroBanner/>
+      <SubNav/>
+      <ReviewerGrid /> */}
     </div>
   );
 }
@@ -45,3 +49,5 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
+Home.Layout = LayoutHome

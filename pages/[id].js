@@ -16,9 +16,11 @@ import {
   Center,
   Container,
   CloseButton,
+  Button,
 } from "@chakra-ui/react";
-import { addDoc, collection, doc } from "@firebase/firestore";
-import DeleteDownload from "../components/modules/DeleteDownload";
+import { doc } from "@firebase/firestore";
+import ReviewerFunctions from "../components/modules/ReviewerFunctions";
+import LayoutReviewer from "../components/layouts/LayoutReviewer";
 
 function ReviewerPage({ providers }) {
   const { data: session } = useSession();
@@ -35,7 +37,7 @@ function ReviewerPage({ providers }) {
   );
 
   return (
-    <div className={styles.reviewer}>
+    <div className={styles.container}>
       <Head>
         <title>
           {reviewers?.title} by {reviewers?.username}
@@ -44,42 +46,39 @@ function ReviewerPage({ providers }) {
         <link rel="icon" href="/iReviewer-Logo-Small.svg" />
       </Head>
 
-      {/* Header */}
-
-      <div className={styles.header}>
-        <Flex
-          justifyContent={"space-between"}
-          alignItems="center"
-          mx={4}
-          mt={2}
-          h="60px"
-          width={"auto"}
-        >
-          <CloseButton
-            fontSize="md"
-            mt={2}
-            color={"gray"}
-            onClick={() => router.push("/")}
-          />
-          <Flex display={{ base: "flex", md: "none" }}>
-            <DeleteDownload />
-          </Flex>
-        </Flex>
-      </div>
+      {/* Header 
 
       {/* Main Container */}
 
       <div>
-        <Container maxW={"full"} maxH={"full"} mt={2} borderTopRadius={"xl"}>
+        <Container maxW={"full"} maxH={"full"} mt={2}>
+          <Flex
+            justifyContent={"space-between"}
+            alignItems="center"
+            mx={4}
+            mt={2}
+            // h="60px"
+            // width={"auto"}
+          >
+            <CloseButton
+              fontSize="md"
+              mt={2}
+              color={"gray"}
+              onClick={() => router.back( )}
+            />
+            <Flex display={{ base: "flex", md: "none" }}>
+              <ReviewerFunctions />
+            </Flex>
+          </Flex>
+
           <Stack direction={"column"}>
             <Box>
               <Flex
                 alignItems={"center"}
                 justifyContent={"space-around"}
-                // bg="blue.400"
+                //
                 p={4}
                 mx={{ sm: 2, md: 24, lg: 40 }}
-                mt={6}
                 mb={6}
               >
                 <Stack m={2} direction={"row"} spacing={4} align={"center"}>
@@ -106,7 +105,7 @@ function ReviewerPage({ providers }) {
 
                 {/* Download/delete */}
                 <Flex display={{ base: "none", md: "flex" }}>
-                  <DeleteDownload title={reviewers?.title}/>
+                  <ReviewerFunctions title={reviewers?.title} />
                 </Flex>
               </Flex>
             </Box>
@@ -138,3 +137,5 @@ export async function getServerSideProps(context) {
 }
 
 export default ReviewerPage;
+
+ReviewerPage.Layout = LayoutReviewer;
