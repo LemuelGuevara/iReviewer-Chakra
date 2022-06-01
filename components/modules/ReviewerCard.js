@@ -171,8 +171,8 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
                     <AiFillHeart color="gray" />
                   )}
                   {likes.length > 0 && <Text>{likes.length}</Text>}
-                  <AiFillEye color="gray" />
-                  <Text>{pageView.viewCount}</Text>
+                  {/* <AiFillEye color="gray" />
+                  <Text>{pageView.viewCount}</Text> */}
                 </Stack>
               </Flex>
             </Box>
