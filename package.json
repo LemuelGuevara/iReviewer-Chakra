@@ -32,7 +32,8 @@
     "react-pdf-to-image": "^1.0.2",
     "react-sizeme": "^3.0.2",
     "recoil": "^0.7.3-alpha.2",
-    "tabler-icons-react": "^1.48.0"
+    "tabler-icons-react": "^1.48.0",
+    "vercel": "^24.2.4"
   },
   "devDependencies": {
     "@types/node": "17.0.33",
