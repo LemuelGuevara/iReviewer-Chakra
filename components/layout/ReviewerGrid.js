@@ -38,9 +38,7 @@ function ReviewerGrid() {
   return (
     <div>
       <SimpleGrid
-        // minChildWidth={["450px", "250px", "200px", "245px"]}
-        minChildWidth={["250px", "250px", "200px", "245px"]}
-        columns={[2, 4]}
+        columns={{base: 1, sm: 1, md: 2, lg: 3, xl: 4}}
         spacingX={"24px"}
         spacingY={"24px"}
         // p={[12, 1, 12, 16]}
