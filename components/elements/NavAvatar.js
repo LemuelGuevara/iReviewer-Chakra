@@ -9,9 +9,11 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 function NavAvatar() {
   const { data: session } = useSession();
+  const router = useRouter();
 
   return (
     <div>
@@ -26,7 +28,7 @@ function NavAvatar() {
           <Avatar size={"sm"} src={session?.user?.image} />
         </MenuButton>
         <MenuList>
-          <MenuItem>{session?.user?.name}</MenuItem>
+          <MenuItem onClick={() => router.push("/profile")}>{session?.user?.name}</MenuItem>
           {/* <MenuItem>Settings</MenuItem> */}
           <MenuDivider />
           <MenuItem

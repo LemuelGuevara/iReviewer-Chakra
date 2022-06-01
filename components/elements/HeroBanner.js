@@ -4,93 +4,86 @@ import {
   Flex,
   Heading,
   Text,
-  Button,
   Image,
   Icon,
   useColorModeValue,
-  Modal,
-  ModalBody,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalFooter
 } from "@chakra-ui/react";
-import { FcGoogle } from "react-icons/fc";
+import styles from "../../styles/Home.module.css"
 
-export default function HeroBanner({ providers }) {
+export default function HeroBanner() {
   return (
-    <Container maxW={"7xl"}>
-      <Stack
-        align={"center"}
-        spacing={{ base: 8, md: 10 }}
-        py={{ base: 20, md: 28 }}
-        direction={{ base: "column", md: "row" }}
-      >
-        <Stack flex={1} spacing={{ base: 5, md: 10 }}>
-          <Heading
-            lineHeight={1.1}
-            fontWeight={600}
-            fontSize={{ base: "3xl", sm: "4xl", lg: "6xl" }}
-          >
-            <Text
-              as={"span"}
-              position={"relative"}
-              _after={{
-                content: "''",
-                width: "full",
-                height: "30%",
-                position: "absolute",
-                bottom: 1,
-                left: 0,
-                bg: "#00B0FF",
-                zIndex: -1,
-              }}
-            >
-              Upload once,
-            </Text>
-            <br />
-            <Text as={"span"} color="#00B0FF">
-              full access to reviewers!
-            </Text>
-          </Heading>
-          <Text color={"gray.500"}>
-            iReviewer is a platform where students can freely share their
-            reviewers online with ease. Download and upload through the cloud.
-          </Text>
-          <Stack
-            spacing={{ base: 4, sm: 6 }}
-            direction={{ base: "column", sm: "row" }}
-          >
-          </Stack>
-        </Stack>
-        <Flex
-          flex={1}
-          justify={"center"}
+    <div className={styles.container}>
+      <Container maxW={"7xl"}>
+        <Stack
           align={"center"}
-          position={"relative"}
-          w={"full"}
+          spacing={{ base: 8, md: 10 }}
+          py={{ base: 20, md: 28 }}
+          direction={{ base: "column", md: "row" }}
         >
-          <Blob
-            w={"150%"}
-            h={"150%"}
-            position={"absolute"}
-            top={"-20%"}
-            left={0}
-            zIndex={-1}
-            color={useColorModeValue("red.50", "red.400")}
-          />
-          <Image
-            alt={"Hero Image"}
-            fit={"cover"}
+          <Stack flex={1} spacing={{ base: 5, md: 10 }}>
+            <Heading
+              lineHeight={1.1}
+              fontWeight={600}
+              fontSize={{ base: "3xl", sm: "4xl", lg: "6xl" }}
+            >
+              <Text
+                as={"span"}
+                position={"relative"}
+                _after={{
+                  content: "''",
+                  width: "full",
+                  height: "30%",
+                  position: "absolute",
+                  bottom: 1,
+                  left: 0,
+                  bg: "#00B0FF",
+                  zIndex: -1,
+                }}
+              >
+                Upload once,
+              </Text>
+              <br />
+              <Text as={"span"} color="#00B0FF">
+                full access to reviewers!
+              </Text>
+            </Heading>
+            <Text color={"gray.500"}>
+              iReviewer is a platform where students can freely share their
+              reviewers online with ease. Download and upload through the cloud.
+            </Text>
+            <Stack
+              spacing={{ base: 4, sm: 6 }}
+              direction={{ base: "column", sm: "row" }}
+            ></Stack>
+          </Stack>
+          <Flex
+            flex={1}
+            justify={"center"}
             align={"center"}
-            w={"100%"}
-            h={"100%"}
-            src={"/HeroLogo.svg"}
-          />
-        </Flex>
-      </Stack>
-    </Container>
+            position={"relative"}
+            w={"full"}
+          >
+            <Blob
+              w={"150%"}
+              h={"150%"}
+              position={"absolute"}
+              top={"-20%"}
+              left={0}
+              zIndex={-1}
+              color={useColorModeValue("red.50", "red.400")}
+            />
+            <Image
+              alt={"Hero Image"}
+              fit={"cover"}
+              align={"center"}
+              w={"100%"}
+              h={"100%"}
+              src={"/HeroLogo.svg"}
+            />
+          </Flex>
+        </Stack>
+      </Container>
+    </div>
   );
 }
 
