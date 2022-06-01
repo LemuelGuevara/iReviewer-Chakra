@@ -100,6 +100,8 @@ function ReviewerCard({ id, reviewer, reviewerPage }) {
             p={6}
             overflow={"hidden"}
             _hover={{
+              transitionDuration: "2s",
+              transitionProperty:  "ease-out 70ms",
               boxShadow: "2xl",
             }}
           >
